@@ -80,6 +80,14 @@ CUDA_VISIBLE_DEVICES=0 python inference.py --model_path path/to/your_downloaded_
 CUDA_VISIBLE_DEVICES=0 python inference.py --model_path path/to/your_downloaded_model --prompt "Fireworks in the air." --video_generation True --save_path path/to/save_videos
 ```
 
+### 3D Content
+
+The discrete autoencoder now supports 3D inputs. You can decode a tensor of
+shape `(B, T, H, W, C)` using the `decode_video` method in the VAE module for
+volumetric or multi-frame data. For loading volumetric data stored in HDF5 files
+you can use the provided `AmplitudeDataset` in `vila_u.data` which reshapes
+amplitude volumes into `(H, W, D)` tensors.
+
 ### Evaluation
 
 Evaluate VILA-U on visual language benchmarks with the following command:

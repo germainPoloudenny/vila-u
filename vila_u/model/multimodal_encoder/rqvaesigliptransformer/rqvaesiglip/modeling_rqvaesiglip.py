@@ -7,6 +7,7 @@ from typing import Optional
 
 from .configuration_rqvaesiglip import RQVAESiglipConfig
 from .modules import Decoder
+from .modules_3d import Decoder as Decoder3D
 from .quantizations import RQBottleneck
 from .siglip import SiglipModel
 
@@ -27,9 +28,15 @@ class RQVAESiglipModel(PreTrainedModel):
             shared_codebook=config.shared_codebook,
             restart_unused_codes=config.restart_unused_codes,
         )
-        self.post_quant_conv = torch.nn.Conv2d(config.embed_dim, config.ddconfig["z_channels"], 1)
+        self.post_quant_conv = torch.nn.Conv2d(
+            config.embed_dim, config.ddconfig["z_channels"], 1
+        )
+        self.post_quant_conv_3d = torch.nn.Conv3d(
+            config.embed_dim, config.ddconfig["z_channels"], 1
+        )
 
         self.decoder = Decoder(**config.ddconfig)
+        self.decoder_3d = Decoder3D(**config.ddconfig)
 
         try:
             self.decoder_latent_shape = config.decoder_latent_shape
@@ -75,6 +82,23 @@ class RQVAESiglipModel(PreTrainedModel):
             
         z_q = self.post_quant_conv(z_q)
         out = self.decoder(z_q)
+
+        return out
+
+    def decode_video(self, z_q):
+        """Decode 3D latent features (B, T, H, W, C) to pixel space."""
+        z_q = z_q.permute(0, 4, 1, 2, 3).contiguous()
+
+        if self.decoder_latent_shape is not None:
+            z_q = F.interpolate(
+                z_q.to(torch.float32),
+                size=tuple(self.decoder_latent_shape),
+                mode="trilinear",
+                align_corners=False,
+            ).to(torch.bfloat16)
+
+        z_q = self.post_quant_conv_3d(z_q)
+        out = self.decoder_3d(z_q)
 
         return out
     
