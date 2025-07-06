@@ -1,3 +1,64 @@
+Metadata-Version: 2.4
+Name: vila-u
+Version: 1.0.0
+Summary: VILA-U: a Unified Foundation Model Integrating Visual Understanding and Generation
+Project-URL: Homepage, https://github.com/mit-han-lab/vila-u
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: torch==2.3.0
+Requires-Dist: torchvision==0.18.0
+Requires-Dist: reka-api
+Requires-Dist: google-generativeai
+Requires-Dist: anthropic
+Requires-Dist: tokenizers>=0.15.2
+Requires-Dist: sentencepiece==0.1.99
+Requires-Dist: shortuuid
+Requires-Dist: accelerate==0.34.2
+Requires-Dist: peft>=0.9.0
+Requires-Dist: bitsandbytes==0.41.0
+Requires-Dist: pydantic<2,>=1
+Requires-Dist: markdown2[all]
+Requires-Dist: numpy==1.26.4
+Requires-Dist: scikit-learn==1.2.2
+Requires-Dist: gradio==3.35.2
+Requires-Dist: gradio_client==0.2.9
+Requires-Dist: requests
+Requires-Dist: httpx
+Requires-Dist: uvicorn
+Requires-Dist: fastapi
+Requires-Dist: fire
+Requires-Dist: einops==0.6.1
+Requires-Dist: einops-exts==0.0.4
+Requires-Dist: timm==0.9.12
+Requires-Dist: openpyxl==3.1.2
+Requires-Dist: pytorchvideo==0.1.5
+Requires-Dist: decord==0.6.0
+Requires-Dist: datasets==2.16.1
+Requires-Dist: openai==1.8.0
+Requires-Dist: webdataset==0.2.86
+Requires-Dist: nltk==3.3
+Requires-Dist: pywsd==1.2.4
+Requires-Dist: opencv-python-headless==4.8.0.76
+Requires-Dist: tyro
+Requires-Dist: pytest
+Requires-Dist: pre-commit
+Requires-Dist: loguru
+Requires-Dist: hydra-core
+Provides-Extra: train
+Requires-Dist: deepspeed==0.9.5; extra == "train"
+Requires-Dist: ninja; extra == "train"
+Requires-Dist: wandb; extra == "train"
+Provides-Extra: eval
+Requires-Dist: mmengine; extra == "eval"
+Requires-Dist: word2number; extra == "eval"
+Requires-Dist: Levenshtein; extra == "eval"
+Requires-Dist: nltk; extra == "eval"
+Requires-Dist: pywsd; extra == "eval"
+Dynamic: license-file
+
 # VILA-U: a Unified Foundation Model Integrating Visual Understanding and Generation
 
 \[[Online Demo](https://vila-u.hanlab.ai)\] \[[Paper](https://arxiv.org/abs/2409.04429#)\] \[[Project](https://hanlab.mit.edu/projects/vila-u)\] \[[Models](https://huggingface.co/collections/mit-han-lab/vila-u-7b-6716f7dd5331e4bdf944ffa6)\]

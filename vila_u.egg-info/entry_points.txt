@@ -1,0 +1,2 @@
+[console_scripts]
+vila_u-eval = vila_u.cli.eval:main
